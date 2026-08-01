@@ -17,32 +17,35 @@ import java.util.List;
 @RequestMapping("/students")
 public class StudentController {
 
-    private StudentService service = new StudentService();
+    private final StudentService service;
+
+    public StudentController(StudentService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<Student> getAllStudents() {
-
         return service.getAllStudents();
     }
 
-    @PostMapping
-    public void addStudent(@RequestBody Student student) {
-        service.addStudent(student);
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable Integer id) {
+        return service.getStudentById(id);
     }
 
-    @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable int id) {
-    return service.getStudentById(id);
+    @PostMapping
+    public Student addStudent(@RequestBody Student student) {
+        return service.addStudent(student);
     }
 
     @PutMapping("/{id}")
-    public void updateStudent(@PathVariable int id, 
-                          @RequestBody Student student) {
-    service.updateStudent(id, student);
+    public Student updateStudent(@PathVariable Integer id,
+                                 @RequestBody Student student) {
+        return service.updateStudent(id, student);
     }
-    
+
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable int id) {
-    service.deleteStudent(id);
+    public void deleteStudent(@PathVariable Integer id) {
+        service.deleteStudent(id);
     }
 }

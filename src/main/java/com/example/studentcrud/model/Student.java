@@ -1,11 +1,15 @@
 package com.example.studentcrud.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
- 
- 
+@Entity
 public class Student {
 
-    
-    private int id;
+   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String email;
     private String course;
@@ -14,7 +18,7 @@ public class Student {
 
     }
 
-    public Student(int id, String name, String email, String course) {
+    public Student(Integer id, String name, String email, String course) {
         this.id = id;
         this.name = name;
         this.email = email;
