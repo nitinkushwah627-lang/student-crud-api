@@ -1,166 +1,184 @@
-\# Student CRUD API
+# Student CRUD API (Spring Boot + Spring Data JPA + MySQL)
 
+## 📌 Project Overview
 
+Student CRUD API is a RESTful web application built using Spring Boot, Spring Data JPA, Hibernate, and MySQL. It demonstrates how to perform complete CRUD operations, custom finder methods, JPQL queries, pagination, and sorting using a layered architecture (Controller → Service → Repository).
 
-A simple REST API built with \*\*Spring Boot\*\*, \*\*Spring Data JPA\*\*, \*\*Hibernate\*\*, and \*\*MySQL\*\*. This project demonstrates CRUD (Create, Read, Update, Delete) operations using a layered architecture.
+---
 
+## 🚀 Features
 
+* Create Student
+* Get All Students
+* Get Student by ID
+* Update Student
+* Delete Student
+* Find Students by Name
+* Find Student by Email
+* Find Students by Course
+* Find Students by Name and Course
+* Custom Finder Methods
+* JPQL using `@Query`
+* Pagination
+* Sorting (Ascending & Descending)
 
-\## 🚀 Features
+  * Name
+  * Email
+  * Course
+  * ID
 
+---
 
+## 🛠️ Technologies Used
 
-\* Create a new student
+* Java 21
+* Spring Boot 3
+* Spring Data JPA
+* Hibernate
+* MySQL
+* Maven
+* Postman
 
-\* Get all students
+---
 
-\* Get a student by ID
-
-\* Update student details
-
-\* Delete a student
-
-\* MySQL database integration using Spring Data JPA
-
-
-
-\## 🛠️ Tech Stack
-
-
-
-\* Java 17
-
-\* Spring Boot
-
-\* Spring Data JPA
-
-\* Hibernate
-
-\* MySQL
-
-\* Maven
-
-
-
-\## 📂 Project Structure
-
-
-
-```text
-
-src
-
-&#x20;├── controller
-
-&#x20;├── service
-
-&#x20;├── repository
-
-&#x20;├── model
-
-&#x20;└── resources
+## 📁 Project Structure
 
 ```
+src
+ └── main
+     ├── java
+     │   └── com.example.studentcrud
+     │       ├── controller
+     │       ├── model
+     │       ├── repository
+     │       ├── service
+     │       └── StudentcrudApplication
+     └── resources
+         └── application.properties
+```
 
+---
 
+## 📌 REST API Endpoints
 
-\## 🌐 API Endpoints
+### CRUD Operations
 
+| Method | Endpoint         | Description       |
+| ------ | ---------------- | ----------------- |
+| GET    | `/students`      | Get all students  |
+| GET    | `/students/{id}` | Get student by ID |
+| POST   | `/students`      | Add a new student |
+| PUT    | `/students/{id}` | Update student    |
+| DELETE | `/students/{id}` | Delete student    |
 
+---
 
-| Method | Endpoint         | Description          |
+### Custom Finder Methods
+
+| Method | Endpoint                                       |
+| ------ | ---------------------------------------------- |
+| GET    | `/students/name/{name}`                        |
+| GET    | `/students/email/{email}`                      |
+| GET    | `/students/course/{course}`                    |
+| GET    | `/students/search?name={name}&course={course}` |
 
-| ------ | ---------------- | -------------------- |
+---
 
-| GET    | `/students`      | Get all students     |
+### Pagination
 
-| GET    | `/students/{id}` | Get student by ID    |
+| Method | Endpoint                       |
+| ------ | ------------------------------ |
+| GET    | `/students/page?page=0&size=5` |
 
-| POST   | `/students`      | Create a new student |
+---
 
-| PUT    | `/students/{id}` | Update student       |
+### Sorting
 
-| DELETE | `/students/{id}` | Delete student       |
+| Method | Endpoint                     |
+| ------ | ---------------------------- |
+| GET    | `/students/sort/name`        |
+| GET    | `/students/sort/name-desc`   |
+| GET    | `/students/sort/email`       |
+| GET    | `/students/sort/email-desc`  |
+| GET    | `/students/sort/course`      |
+| GET    | `/students/sort/course-desc` |
+| GET    | `/students/sort/id`          |
+| GET    | `/students/sort/id-desc`     |
 
+---
 
+### Pagination with Sorting
 
-\## 🗄️ Database
+| Method | Endpoint                                   |
+| ------ | ------------------------------------------ |
+| GET    | `/students/page?page=0&size=5&sortBy=name` |
 
+---
 
+## 🗄️ Database
 
-\* MySQL
+Database: **MySQL**
 
-\* Hibernate ORM
+Table:
 
-\* Spring Data JPA
+```
+student
+```
 
+Columns:
 
+* id
+* name
+* email
+* course
 
-\## ▶️ How to Run
+---
 
+## ▶️ How to Run
 
+1. Clone the repository.
+2. Create a MySQL database.
+3. Update database credentials in `application.properties`.
+4. Run the Spring Boot application.
+5. Test APIs using Postman.
 
-1\. Clone the repository.
+---
 
-2\. Create a MySQL database named `student\_db`.
-
-3\. Update `application.properties` with your MySQL username and password.
-
-4\. Run the Spring Boot application.
-
-5\. Test the APIs using Postman.
-
-
-
-\## 📚 Learning Topics Covered
-
-
-
-\* Spring Boot
-
-\* REST API
-
-\* Layered Architecture
-
-\* Spring Data JPA
-
-\* Hibernate
-
-\* MySQL Integration
-
-\* CRUD Operations
-
-\* Git \& GitHub
-
-
-
-\## 🔮 Future Improvements
-
-
-
-\* Custom Finder Methods
-
-\* `@Query`
-
-\* Pagination
-
-\* Sorting
-
-\* One-to-One Mapping
-
-\* One-to-Many Mapping
-
-\* Many-to-One Mapping
-
-\* Many-to-Many Mapping
-
-
-
-\## 👨‍💻 Author
-
-
-
-\*\*Nitin Kushwah\*\*
-
-
-
+## 📚 Concepts Covered
+
+* Spring Boot
+* REST API
+* Spring Data JPA
+* Hibernate
+* MySQL Integration
+* Dependency Injection
+* Entity Mapping
+* Repository Pattern
+* Service Layer
+* CRUD Operations
+* Custom Finder Methods
+* JPQL (`@Query`)
+* Pagination
+* Sorting
+
+---
+
+## 🔮 Future Improvements
+
+* One-to-One Relationship
+* One-to-Many Relationship
+* Many-to-One Relationship
+* Many-to-Many Relationship
+* Validation
+* Exception Handling
+* Swagger/OpenAPI Documentation
+* Unit Testing
+* Spring Security with JWT
+
+---
+
+## 👨‍💻 Author
+
+**Nitin Kushwah**
+
+Learning Spring Boot, Spring Data JPA, Hibernate, and Backend Development.
