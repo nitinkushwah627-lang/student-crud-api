@@ -1,4 +1,5 @@
 package com.example.studentcrud.service;
+import com.example.studentcrud.exception.ResourceNotFoundException;
 import com.example.studentcrud.model.Student;
 import com.example.studentcrud.repository.StudentRepository;
 import org.springframework.data.domain.PageRequest;
@@ -7,6 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
+import com.example.studentcrud.dto.StudentRequestDto;
+import com.example.studentcrud.dto.StudentResponseDto;
+import com.example.studentcrud.mapper.StudentMapper;
 
 import java.util.List;
 
@@ -25,8 +30,14 @@ public class StudentService {
     }
 
     // Add Student
-    public Student addStudent(Student student) {
-        return repository.save(student);
+    public StudentResponseDto addStudent(StudentRequestDto dto) {
+
+    Student student = StudentMapper.toEntity(dto);
+
+    Student savedStudent = repository.save(student);
+
+    return StudentMapper.toResponseDto(savedStudent);
+
     }
 
     // Get Students By Name
@@ -46,7 +57,7 @@ public class StudentService {
 
     // Get Student By ID
     public Student getStudentById(Integer id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Student not found with ID: " + id));
     }
 
     public List<Student> getStudentsByNameAndCourse(String name, String course) {
@@ -54,16 +65,25 @@ public class StudentService {
     }
 
     // Update Student
-    public Student updateStudent(Integer id, Student updatedStudent) {
-    Student student = repository.findById(id).orElse(null);
-    if (student == null) {
-        return null;
-    }
-    student.setName(updatedStudent.getName());
-    student.setEmail(updatedStudent.getEmail());
-    student.setCourse(updatedStudent.getCourse());
-    return repository.save(student);
-    }
+    public StudentResponseDto updateStudent(
+        Integer id,
+        StudentRequestDto dto) {
+
+            Student student = repository.findById(id)
+            .orElseThrow(() ->
+                    new ResourceNotFoundException(
+                            "Student not found with ID: " + id
+                    )
+            );
+
+    student.setName(dto.getName());
+    student.setEmail(dto.getEmail());
+    student.setCourse(dto.getCourse());
+
+    Student updatedStudent = repository.save(student);
+
+    return StudentMapper.toResponseDto(updatedStudent);
+}
 
     // Delete Student
     public void deleteStudent(Integer id) {

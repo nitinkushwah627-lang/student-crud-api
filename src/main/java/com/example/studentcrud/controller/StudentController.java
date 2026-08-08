@@ -2,7 +2,12 @@ package com.example.studentcrud.controller;
 import com.example.studentcrud.model.Student;
 import com.example.studentcrud.service.StudentService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Page;
+
+import com.example.studentcrud.dto.StudentRequestDto;
+import com.example.studentcrud.dto.StudentResponseDto;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/students")
@@ -58,15 +64,15 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student addStudent(@RequestBody Student student) {
-        return service.addStudent(student);
+    public StudentResponseDto addStudent(@Valid @RequestBody StudentRequestDto dto) {
+         return service.addStudent(dto);
     }
 
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Integer id,
-                                 @RequestBody Student student) {
-        return service.updateStudent(id, student);
-    }
+    public StudentResponseDto updateStudent(@PathVariable Integer id,
+                                            @Valid @RequestBody StudentRequestDto dto) {
+       return service.updateStudent(id, dto);
+}
 
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Integer id) {
